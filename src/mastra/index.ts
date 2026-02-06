@@ -1,12 +1,8 @@
 import { Mastra } from "@mastra/core/mastra";
 import { PinoLogger } from "@mastra/loggers";
 import { LibSQLStore } from "@mastra/libsql";
-import {
-  Observability,
-  DefaultExporter,
-  CloudExporter,
-  SensitiveDataFilter,
-} from "@mastra/observability";
+import { Observability } from "@mastra/observability";
+import { BraintrustExporter } from "@mastra/braintrust";
 import { weatherWorkflow } from "./workflows/weather-workflow";
 import { weatherAgent } from "./agents/weather-agent";
 import {
@@ -33,4 +29,16 @@ export const mastra = new Mastra({
     level: "info",
   }),
   deployer: new VercelDeployer(),
+  observability: new Observability({
+    configs: {
+      braintrust: {
+        serviceName: "demo",
+        exporters: [
+          new BraintrustExporter({
+            projectName: "weather agent",
+          }),
+        ],
+      },
+    },
+  }),
 });
