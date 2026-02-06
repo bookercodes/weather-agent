@@ -13,6 +13,9 @@ import {
 import { VercelDeployer } from "@mastra/deployer-vercel";
 
 export const mastra = new Mastra({
+  bundler: {
+    externals: ["chokidar"],
+  },
   workflows: { weatherWorkflow },
   agents: { weatherAgent },
   scorers: {
