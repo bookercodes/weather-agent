@@ -10,12 +10,8 @@ import {
   completenessScorer,
   translationScorer,
 } from "./scorers/weather-scorer";
-import { VercelDeployer } from "@mastra/deployer-vercel";
 
 export const mastra = new Mastra({
-  bundler: {
-    externals: ["chokidar"],
-  },
   workflows: { weatherWorkflow },
   agents: { weatherAgent },
   scorers: {
@@ -31,7 +27,6 @@ export const mastra = new Mastra({
     name: "Mastra",
     level: "info",
   }),
-  deployer: new VercelDeployer(),
   observability: new Observability({
     configs: {
       braintrust: {
